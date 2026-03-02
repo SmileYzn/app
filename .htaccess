@@ -1,0 +1,6 @@
+# Não exibir pastas vazias
+Options -Indexes
+
+# Error document
+ErrorDocument 404 https://pugbr.net/app/404.php
+ErrorDocument 500 https://pugbr.net/app/404.php
