@@ -19,6 +19,17 @@ class Email
     {
         // PHPMailer + Exceptions
         $this->mail = new PHPMailer(true);
+        
+        // SSL Certificate error
+        $this->mail->SMTPOptions =
+        [
+            'ssl' =>
+            [
+                'verify_peer'       => false,
+                'verify_peer_name'  => false,
+                'allow_self_signed' => true
+            ]
+        ];
 
         // SMTP
         $this->mail->isSMTP();

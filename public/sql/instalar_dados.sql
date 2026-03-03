@@ -2,26 +2,26 @@
 
 -- Configuração
 INSERT INTO configuracao VALUES
-(NULL,'SG_URL_BACKEND','https://painel.dominio.com/','URL do backend'),
-(NULL,'SG_URL_FRONTEND','https://dominio.com/','URL do frontend'),
-(NULL,'SG_PATH','/home/dominio/public_html/painel/','Caminho da aplicação'),
-(NULL,'SG_PATH_PUBLIC','/home/dominio/public_html/painel/public/','Caminho da pasta pública'),
+(NULL,'SG_URL_BACKEND','https://painel.dominio.net/','URL do backend'),
+(NULL,'SG_URL_FRONTEND','https://dominio.net/','URL do frontend'),
+(NULL,'SG_PATH','/home/dominio/public_html/app/','Caminho da aplicação'),
+(NULL,'SG_PATH_PUBLIC','/home/dominio/public_html/app/public/','Caminho da pasta pública'),
 (NULL,'SG_LOGIN_TENTATIVAS','5','Número de entativas de login'),
 (NULL,'SG_SESSAO_TOKEN', UUID(),'Token de sessão'),
-(NULL,'SG_SESSAO_DOMINIO','painel.dominio.com','Domínio principal da sessão'),
+(NULL,'SG_SESSAO_DOMINIO','painel.dominio.net','Domínio principal da sessão'),
 (NULL,'SG_SESSAO_DIAS','7','Dias para expirar o token da sessão (Passe 0 para expirar ao fechar o navegador)'),
 (NULL,'SG_COOKIE_TOKEN', UUID(),'Token do cookie (Função Lembrar Sessão)'),
 (NULL,'SG_COOKIE_DIAS','30','Dias para expirar a função Lembrar Sessão'),
 (NULL,'SG_SMTP_DEBUG','0','Ativar depturação do PHP Mailer'),
 (NULL,'SG_SMTP_TIMEOUT','5','Tempo limite para conectar-se'),
 (NULL,'SG_SMTP_MODE','tls','Modo de autenticação do SMTP'),
-(NULL,'SG_SMTP_HOST','dominio.com','Host do servidor SMTP'),
+(NULL,'SG_SMTP_HOST','mail.dominio.net','Host do servidor SMTP'),
 (NULL,'SG_SMTP_PORT','587','Porta SMTP'),
-(NULL,'SG_SMTP_USER','app@dominio.com','Usuário do servidor SMTP'),
-(NULL,'SG_SMTP_PASS','mp0ukSh3Hwgv3P3','Senha do servidor SMTP'),
+(NULL,'SG_SMTP_USER','','Usuário do servidor SMTP'),
+(NULL,'SG_SMTP_PASS','','Senha do servidor SMTP'),
 (NULL,'SG_SMTP_NAME','Aplicativo','Nome do remetente de email do servidor SMTP'),
-(NULL,'SG_CAPTCHA_SITE_KEY','0x4AAAAAABu7WCFMO5epEUoD', 'Turnstile Site Key'),
-(NULL,'SG_CAPTCHA_SECRET_KEY','0x4AAAAAABu7WPWs8Fxfno2V64H7lP3nZOs', 'Turnstile Secret Key'),
+(NULL,'SG_CAPTCHA_SITE_KEY','', 'Turnstile Site Key'),
+(NULL,'SG_CAPTCHA_SECRET_KEY','', 'Turnstile Secret Key'),
 (NULL,'SG_SUPORTE_URL','https://vecdigital.com.br/','URL de Suporte');
 
 -- País

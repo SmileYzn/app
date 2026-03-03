@@ -11,11 +11,18 @@ class Configuracao extends Base
     {
         if (empty($_ENV['SG_APP_PATH']))
         {
-            $run = $this->pdo->query("SELECT chave, valor FROM {$this->tabela}");
-
-            foreach ($run as $row)
+            try
             {
-                $_ENV[$row['chave']] = $row['valor'];
+                $run = $this->pdo->query("SELECT chave, valor FROM {$this->tabela}");
+
+                foreach ($run as $row)
+                {
+                    $_ENV[$row['chave']] = $row['valor'];
+                }
+            }
+            catch (\PDOException $ex)
+            {
+                Extra::redirecionar("setup.php");
             }
         }
 

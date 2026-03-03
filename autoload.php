@@ -1,4 +1,5 @@
 <?php
+
 // Exibir erros do PHP
 ini_set('display_errors', 0);
 
@@ -13,6 +14,9 @@ setlocale(LC_TIME, 'pt_BR.utf-8', 'pt_BR', 'portuguese');
 
 // Redirecionar logs do PHP
 ini_set('error_log', __DIR__ . '/logs/' . date('Y-m-d') . '.log');
+
+// Conexão MySQL / MariaDB
+require_once("db.php");
 
 // Vendor (Composer autoloader)
 if (file_exists(__DIR__ . '/vendor/autoload.php'))

@@ -26,7 +26,7 @@ include("../../pre.php");
                 </div>
                 <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="card-body collapse <?= !empty($_SESSION[$_SERVER['SCRIPT_NAME']]) ? 'show' : '' ?>" id="collapse-pesquisa">
                     <div class="row g-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label">Pesquisar</label>
                             <input type="text" class="form-control" id="pesquisa" name="pesquisa" value="<?= $_SESSION[$_SERVER['SCRIPT_NAME']]['pesquisa'] ?>">
                         </div>

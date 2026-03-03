@@ -72,7 +72,13 @@ class Recuperar extends Base
 
                 if ($id)
                 {
-                    $this->enviarEmail($id, $row);
+                    if(!$this->enviarEmail($id, $row))
+                    {
+                        $this->inativar($id);
+                        
+                        Alert::set("Falha ao enviar email a: <strong>{$this->email}</strong> contate o suporte.", 'danger');
+                        return false;
+                    }
                 }
             }
         }
@@ -107,8 +113,10 @@ class Recuperar extends Base
             ];
             
             $email = new Email;
-            $email->enviar($usuario['email'], $mensagem['assunto'], $email->getTemplate('recuperar.html', $mensagem));
+            return $email->enviar($usuario['email'], $mensagem['assunto'], $email->getTemplate('recuperar.html', $mensagem));
         }
+        
+        return false;
     }
     
     /**

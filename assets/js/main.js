@@ -3,26 +3,26 @@ document.addEventListener('DOMContentLoaded', () =>
     // Color Mode
     const widgetColorMode = document.querySelector('button[data-bs-widget="color-mode"]');
     
-    if (widgetColorMode)
+    const getColorMode = () =>
     {
-        const getColorMode = () =>
+        let colorMode = localStorage.getItem('data-color-mode');
+
+        if (colorMode)
         {
-            let colorMode = localStorage.getItem('data-color-mode');
-
-            if (colorMode)
-            {
-                return colorMode;
-            }
-
-            return (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            return colorMode;
         }
 
-        const setColorMode = (mode) =>
+        return (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+
+    const setColorMode = (mode) =>
+    {
+        localStorage.setItem('data-color-mode', mode);
+
+        document.documentElement.setAttribute('data-bs-theme', mode);
+
+        if (widgetColorMode)
         {
-            localStorage.setItem('data-color-mode', mode);
-
-            document.documentElement.setAttribute('data-bs-theme', mode);
-
             if (widgetColorMode.firstElementChild)
             {
                 if (mode === 'dark')
@@ -35,14 +35,17 @@ document.addEventListener('DOMContentLoaded', () =>
                 }
             }
         }
-        
-        setColorMode(getColorMode());
+    }
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =>
-        {
-            setColorMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        });
+    setColorMode(getColorMode());
 
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =>
+    {
+        setColorMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    });
+
+    if (widgetColorMode)
+    {
         widgetColorMode.addEventListener('click', () =>
         {
             const mode = localStorage.getItem('data-color-mode');

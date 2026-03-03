@@ -26,22 +26,22 @@ class Extra
     public static function getURL($queryString = false)
     {
         $scheme = "http";
-        
-        if(!empty($_SERVER['HTTPS']))
+
+        if (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on'))
         {
             $scheme = "https";
         }
-        
+
         $parameter = $_SERVER['PHP_SELF'];
-        
+
         if ($queryString)
         {
             $parameter = $_SERVER['REQUEST_URI'];
         }
-        
+
         return "{$scheme}://{$_SERVER['HTTP_HOST']}{$parameter}";
     }
-    
+
     /**
      * Redirecionar a uma url
      * 
