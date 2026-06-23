@@ -107,19 +107,6 @@ app/
 └── README.md                # Este arquivo
 ```
 
-### 📌 Classes Principais
-
-| Classe | Descrição |
-|--------|-----------|
-| `Usuario` | CRUD completo de usuários, atribuição de permissões |
-| `Login` | Autenticação, validação de credenciais |
-| `Permissao` | Gerenciar permissões, verificar acesso |
-| `Acesso` | Middleware de validação de acesso |
-| `Conexao` | Pool de conexões com banco de dados |
-| `Email` | Envio de e-mails com PHPMailer |
-| `Upload` | Validação e upload de arquivos |
-| `Sessao` | Gerenciamento seguro de sessões |
-
 ## 🚀 Como Começar
 
 ### Pré-requisitos
@@ -198,7 +185,12 @@ Acesse o painel e configure na seção **Configurações** os seguintes campos:
 | `SG_CAPTCHA_SECRET_KEY` | Cloudflare Turnstile Secret | `[obter em turnstile.com]` |
 | `SG_SUPORTE_URL` | URL de suporte | `https://suporte.seu-dominio.com` |
 
-#### 7. Acesse a aplicação
+#### 7. Execute a instalação
+```
+http://seu-servidor/path/to/app/setup.php
+```
+
+Após concluir a instalação, acesse o painel de login em:
 ```
 http://seu-servidor/path/to/app/login
 ```
@@ -279,48 +271,6 @@ Usuários ← → Permissões
 Unidades
 ```
 
-## � Desenvolvimento e Customização
-
-### Estrutura de Pastas para Novos Módulos
-
-Para adicionar um novo módulo/funcionalidade:
-
-```bash
-# Criar classe de modelo
-touch class/MeuModelo.php
-
-# Criar páginas no admin
-mkdir -p configuracoes/meu-modulo
-touch configuracoes/meu-modulo/index.php
-touch configuracoes/meu-modulo/adicionar.php
-touch configuracoes/meu-modulo/editar.php
-```
-
-### Exemplo: Criar Nova Classe
-```php
-<?php
-namespace App;
-
-class MeuModelo extends Base {
-    public function __construct() {
-        parent::__construct();
-        $this->tabela = 'meu_modulo';
-    }
-    
-    public function listar($pagina = 1, $limite = 10) {
-        // Sua lógica aqui
-    }
-}
-```
-
-### Boas Práticas
-
-- Sempre use prepared statements para queries
-- Valide entrada de dados com `Backend::validar()`
-- Use sessões com `Sessao::obter()`
-- Registre ações importantes em `Logs::registrar()`
-- Siga PSR-1/PSR-12 para estilos de código
-
 ## 📚 Documentação Adicional
 
 - [Guia de Permissões](./docs/permissoes.md) - Como configurar permissões
@@ -356,30 +306,11 @@ mysqldump -u root -p sua_base_dados > backup.sql
 
 ## 📄 Licença
 
-Este projeto é **proprietário**. Todos os direitos reservados.
+Este projeto é distribuído sob a licença **MIT**.
 
-Uso não autorizado, cópia ou redistribuição é proibido sem permissão expressa do proprietário.
+Veja `LICENSE` para detalhes.
 
-## 👨‍💻 Suporte e Contribuição
-
-### Relatar Problemas
-
-Para reportar bugs ou sugestões:
-- Entre em contato com a equipe de desenvolvimento
-- Descreva o problema detalhadamente
-- Inclua passos para reproduzir
-- Anexe logs se relevante
-
-### Contribuições
-
-Contribuições são bem-vindas! Para colaborar:
-1. Faça fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
-
-## 🛠️ Stack Técnico Completo
+## ️ Stack Técnico Completo
 
 | Camada | Tecnologia | Versão |
 |--------|-----------|--------|
@@ -390,22 +321,6 @@ Contribuições são bem-vindas! Para colaborar:
 | **Email** | PHPMailer | 6.x |
 | **CAPTCHA** | Cloudflare Turnstile | Latest |
 | **Servidor** | Apache/Nginx | Latest |
-
-## 📈 Roadmap Futuro
-
-- [ ] API REST completa com JWT
-- [ ] Dashboard com gráficos e relatórios
-- [ ] Integração com OAuth2
-- [ ] Importação/Exportação de dados
-- [ ] Webhooks API
-- [ ] Sistema de templates de email
-- [ ] Validação em tempo real (WebSocket)
-
-## 📞 Contato
-
-- **Email:** contato@seu-dominio.com
-- **Suporte:** https://suporte.seu-dominio.com
-- **Website:** https://seu-dominio.com
 
 ---
 
