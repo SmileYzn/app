@@ -4,7 +4,7 @@ Um framework administrativo moderno, robusto e escalável para gerenciamento efi
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **PHP 7.4+** - Backend server-side
+- **PHP 8.3+** - Backend server-side
 - **Bootstrap 5** - Framework CSS responsivo  
 - **JavaScript (Vanilla)** - Interatividade frontend sem dependências
 - **MariaDB / MySQL** - Banco de dados relacional
@@ -124,7 +124,7 @@ app/
 
 ### Pré-requisitos
 
-- **PHP 7.4 ou superior** (recomendado PHP 8.1+)
+- **PHP 8.3 ou superior**
 - **MariaDB 10.5+** ou **MySQL 5.7+**
 - **Composer** (gerenciador de dependências PHP)
 - **Servidor Web** (Apache com mod_rewrite ou nginx)
@@ -383,7 +383,7 @@ Contribuições são bem-vindas! Para colaborar:
 
 | Camada | Tecnologia | Versão |
 |--------|-----------|--------|
-| **Backend** | PHP | 7.4+ |
+| **Backend** | PHP | 8.3+ |
 | **Frontend** | Bootstrap | 5.x |
 | **JavaScript** | Vanilla JS | ES6+ |
 | **Banco de Dados** | MySQL/MariaDB | 5.7+/10.5+ |
