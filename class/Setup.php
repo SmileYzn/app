@@ -2,13 +2,26 @@
 
 class Setup
 {
+    private static $dbConfig = "db.php";
     private static $sqlTable = "./public/sql/instalar.sql";
     private static $sqlDados = "./public/sql/instalar_dados.sql";
+    
     /**
      * Executa os passos do instalador
      */
     public static function iniciar()
     {
+        // Verificar se já está instalado
+        if (file_exists(self::$dbConfig))
+        {
+            // Já instalado
+            Extra::redirecionar("index.php");
+            
+            // Retornar
+            return false;
+        }
+        
+        // Sessão
         if (session_status() == PHP_SESSION_NONE)
         {
             if (!headers_sent())
@@ -47,21 +60,21 @@ class Setup
                     // Validar Host e Porta
                     if (empty($_POST['host']) || empty($_POST['port']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Servidor e Porta."];
+                        Alert::set("Preencha o campo: Servidor e Porta.");
                         return false;
                     }
 
                     // Validar nome do banco de dados
                     if (empty($_POST['dbName']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Nome do banco."];
+                        Alert::set("Preencha o campo: Nome do banco.");
                         return false;
                     }
 
                     // Validar usuário e senha
                     if (empty($_POST['user']) || empty($_POST['password']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Usuário e Senha."];
+                        Alert::set("Preencha o campo: Usuário e Senha.");
                         return false;
                     }
 
@@ -89,13 +102,13 @@ class Setup
                         $db .= "define('SG_DB_PASS', '{$_POST['password']}');";
 
                         // Criar arquivo
-                        if (file_put_contents("db.php", $db) < 1)
+                        if (file_put_contents(self::$dbConfig, $db) < 1)
                         {
                             // Apagar dados
                             unset($_SESSION['conexao']);
                             
                             // Retornar erro
-                            $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Falha ao criar configuração, tente novamente."];
+                            Alert::set("Falha ao criar configuração, verifique as permissões.");
                             
                             return false;
                         }
@@ -104,8 +117,8 @@ class Setup
                         $_SESSION['conexao'] = $_POST;
                         
                         // Mensagem alert
-                        $_SESSION['alert'] = ['tipo' => 'success', 'mensagem' => "Conexão com o banco de dados estabelecida, preencha os dados para continuar."];
-
+                        Alert::set("Conexão com o banco de dados estabelecida, preencha os dados para continuar.", "success");
+                        
                         // Unset
                         unset($_POST);
 
@@ -117,7 +130,8 @@ class Setup
                         unset($_SESSION['conexao']);
 
                         // Alert
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Ocorreram os seguintes erros:<br><br><pre>{$ex->getMessage()}</pre>"];
+                        Alert::set("Ocorreram os seguintes erros:<br><br><pre>{$ex->getMessage()}</pre>");
+                        
                         return false;
                     }
                     break;
@@ -127,49 +141,57 @@ class Setup
                     // Validar Servidor SMTP
                     if (empty($_POST['SG_SMTP_HOST']) || empty($_POST['SG_SMTP_PORT']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Servidor e Porta."];
+                        Alert::set("Preencha o campo: Servidor e Porta.");
                         return false;
                     }
                     
                     // Validar STMP Mode
                     if (empty($_POST['SG_SMTP_MODE']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Autenticação."];
+                        Alert::set("Preencha o campo: Autenticação.");
                         return false;
                     }
                     
                     // Validar Email
                     if (empty($_POST['SG_SMTP_USER']) || !filter_var($_POST['SG_SMTP_USER'], FILTER_VALIDATE_EMAIL))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Email com um endereço válido."];
+                        Alert::set("Preencha o campo: Email com um endereço válido.");
                         return false;
                     }
                     
                     // Validar Senha
                     if (empty($_POST['SG_SMTP_PASS']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Senha."];
+                        Alert::set("Preencha o campo: Senha.");
                         return false;
                     }
                     
                     // Setar configurações
                     $_SESSION['configuracao'] =
                     [
-                        'SG_URL_BACKEND'  => sprintf("%s://{$_SERVER['HTTP_HOST']}/", ($_SERVER['HTTPS'] == 'on' ? "https" : "http")),
-                        'SG_URL_FRONTEND' => sprintf("%s://{$_SERVER['HTTP_HOST']}/", ($_SERVER['HTTPS'] == 'on' ? "https" : "http")),
-                        'SG_PATH'         => sprintf("%s/", rtrim($_SERVER['DOCUMENT_ROOT'], "/")),
-                        'SG_PATH_PUBLIC'  => sprintf("%s/public/", rtrim($_SERVER['DOCUMENT_ROOT'], "/")),
-                        'SG_SMTP_HOST'    => $_POST['SG_SMTP_HOST'],
-                        'SG_SMTP_PORT'    => $_POST['SG_SMTP_PORT'],
-                        'SG_SMTP_MODE'    => $_POST['SG_SMTP_MODE'],
-                        'SG_SMTP_USER'    => $_POST['SG_SMTP_USER'],
-                        'SG_SMTP_PASS'    => $_POST['SG_SMTP_PASS'],
-                        'SG_SMTP_NAME'    => $_POST['SG_SMTP_NAME']
+                        // URL
+                        'SG_URL_BACKEND'    => sprintf("%s://{$_SERVER['HTTP_HOST']}/", ($_SERVER['HTTPS'] == 'on' ? "https" : "http")),
+                        'SG_URL_FRONTEND'   => sprintf("%s://{$_SERVER['HTTP_HOST']}/", ($_SERVER['HTTPS'] == 'on' ? "https" : "http")),
+     
+                        // Path
+                        'SG_PATH'           => sprintf("%s/", rtrim($_SERVER['DOCUMENT_ROOT'], "/")),
+                        'SG_PATH_PUBLIC'    => sprintf("%s/public/", rtrim($_SERVER['DOCUMENT_ROOT'], "/")),
+     
+                        // Domínio principal da sessão
+                        'SG_SESSAO_DOMINIO' => $_SERVER['HTTP_HOST'],
+     
+                        // SMTP
+                        'SG_SMTP_HOST'      => $_POST['SG_SMTP_HOST'],
+                        'SG_SMTP_PORT'      => $_POST['SG_SMTP_PORT'],
+                        'SG_SMTP_MODE'      => $_POST['SG_SMTP_MODE'],
+                        'SG_SMTP_USER'      => $_POST['SG_SMTP_USER'],
+                        'SG_SMTP_PASS'      => $_POST['SG_SMTP_PASS'],
+                        'SG_SMTP_NAME'      => $_POST['SG_SMTP_NAME']
                     ];
 
                     // Mensagem alert
-                    $_SESSION['alert'] = ['tipo' => 'success', 'mensagem' => "Configurações concluídas, preencha os dados do usuário."];
-
+                    Alert::set("Configurações concluídas, preencha os dados do usuário.", "success");
+                    
                     // Unset
                     unset($_POST);
 
@@ -180,35 +202,35 @@ class Setup
                     // Validar Nome
                     if (empty($_POST['nome']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Nome."];
+                        Alert::set("Preencha o campo: Nome.");
                         return false;
                     }
 
                     // Validar Login
                     if (empty($_POST['login']))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Usuário."];
+                        Alert::set("Preencha o campo: Usuário.");
                         return false;
                     }
 
                     // Validar Email
                     if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha o campo: Email com um endereço válido."];
+                        Alert::set("Preencha o Email com um endereço válido.");
                         return false;
                     }
 
                     // Validar Senha
                     if (empty($_POST['senha'][0]) || empty($_POST['senha'][1]))
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Preencha os campos: Senha e Confirmar Senha."];
+                        Alert::set("Preencha os campos: Senha e Confirmar Senha.");
                         return false;
                     }
 
                     // Validar Senha (Confirmação)
                     if ($_POST['senha'][0] != $_POST['senha'][1])
                     {
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "As senhas digitadas não conferem."];
+                        Alert::set("As senhas digitadas não conferem.");
                         return false;
                     }
 
@@ -273,7 +295,8 @@ class Setup
                         // Instalação concluída
                         Extra::redirecionar("index.php");
 
-                        return false;
+                        //
+                        return true;
                     }
                     catch (\Exception $ex)
                     {
@@ -281,7 +304,7 @@ class Setup
                         unset($_SESSION['usuario']);
 
                         // Alert
-                        $_SESSION['alert'] = ['tipo' => 'danger', 'mensagem' => "Ocorreram os seguintes erros:<br><br><pre>{$ex->getMessage()}</pre>"];
+                        Alert::set("Ocorreram os seguintes erros:<br><br><pre>{$ex->getMessage()}</pre>");
                         return false;
                     }
                     break;

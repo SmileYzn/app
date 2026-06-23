@@ -16,6 +16,7 @@ $_DADOS = Backend::executar();
         
         <link rel="icon" href="assets/img/favicon.svg">
         <link rel="stylesheet" href="assets/css/main.css">
+        <script src="assets/js/theme.js"></script>
     </head>
     <body>
         <div class="page-loader position-fixed vw-100 vh-100 bg-dark-subtle opacity-75" data-bs-theme="dark">

@@ -129,23 +129,10 @@ class Unidade extends Base
             'nome'                   => $this->nome,
             'razaoSocial'            => $this->razaoSocial,
             'nomeFantasia'           => $this->nomeFantasia,
-            'qsa'                    => $this->qsa,
             'inscricaoEstadual'      => $this->inscricaoEstadual,
             'inscricaoMunicipal'     => $this->inscricaoMunicipal,
             'isento'                 => $this->isento,
-            'abertura'               => !empty($this->abertura) ? $this->abertura : null,
-            'ultimaAtualizacao'      => !empty($this->ultimaAtualizacao) ? $this->ultimaAtualizacao : null,
             'cnae'                   => $this->cnae,
-            'tipo'                   => $this->tipo,
-            'porte'                  => $this->porte,
-            'naturezaJuridica'       => $this->naturezaJuridica,
-            'efr'                    => $this->efr,
-            'capitalSocial'          => $this->capitalSocial,
-            'situacao'               => $this->situacao,
-            'situacaoData'           => !empty($this->situacaoData) ? $this->situacaoData : null,
-            'situacaoMotivo'         => $this->situacaoMotivo,
-            'situacaoEspecial'       => $this->situacaoEspecial,
-            'situacaoEspecialData'   => !empty($this->situacaoEspecialData) ? $this->situacaoEspecialData : null,
             'cep'                    => $this->cep,
             'bairro'                 => $this->bairro,
             'logradouro'             => $this->logradouro,
@@ -178,35 +165,5 @@ class Unidade extends Base
         
         Alert::set("Nenhuma alteração, tente novamente", "warning");
         return 0;
-    }
-    
-    /**
-     * Inativar os registros passados via $_POST['id']
-     * 
-     * @return int      Quantidade de registros inativados
-     */
-    public function excluir()
-    {
-        $resultado = 0;
-        
-        if (empty($this->id) || !is_array($this->id))
-        {
-            $resultado = $this->inativar($this->id);
-
-            if ($resultado > 0)
-            {
-                Alert::set("{$resultado} registro(s) removido(s) com sucesso.", "success");
-            }
-            else
-            {
-                Alert::set("Nenhuma alteração, tente novamente.");
-            }
-        }
-        else
-        {
-            Alert::set("Selecione algum registro.");
-        }
-        
-        return $resultado;
     }
 }

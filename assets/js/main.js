@@ -1,25 +1,41 @@
-document.addEventListener('DOMContentLoaded', () =>
+(() =>
 {
-    // Color Mode
+    'use strict';
+    
     const widgetColorMode = document.querySelector('button[data-bs-widget="color-mode"]');
     
     const getColorMode = () =>
     {
-        let colorMode = localStorage.getItem('data-color-mode');
-
-        if (colorMode)
+        try
         {
-            return colorMode;
+            const colorMode = localStorage.getItem('data-color-mode');
+
+            if (colorMode)
+            {
+                return colorMode;
+            }
+        }
+        catch
+        {
+            // localStorage may be unavailable (private mode, sandboxed iframe).
         }
 
         return (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    }
-
+    };
+    
     const setColorMode = (mode) =>
     {
-        localStorage.setItem('data-color-mode', mode);
+        try
+        {
+            localStorage.setItem('data-color-mode', mode);
+        }
+        catch
+        {
+            // localStorage may be unavailable (private mode, sandboxed iframe).
+        }
 
         document.documentElement.setAttribute('data-bs-theme', mode);
+        document.documentElement.style.colorScheme = mode;
 
         if (widgetColorMode)
         {
@@ -35,15 +51,15 @@ document.addEventListener('DOMContentLoaded', () =>
                 }
             }
         }
-    }
-
+    };
+    
     setColorMode(getColorMode());
-
+    
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =>
     {
         setColorMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     });
-
+    
     if (widgetColorMode)
     {
         widgetColorMode.addEventListener('click', () =>
@@ -60,7 +76,10 @@ document.addEventListener('DOMContentLoaded', () =>
             }
         });
     }
-    //
+})();
+
+document.addEventListener('DOMContentLoaded', () =>
+{
     // Page Loader
     const pageLoader = document.querySelector('.page-loader');
 
@@ -68,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () =>
     {
         pageLoader.remove();
     }
-    //
+    
     // Sidebar Toggle
     const main = document.querySelector('main');
     const aside = document.querySelector('aside');

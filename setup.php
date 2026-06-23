@@ -1,6 +1,6 @@
 <?php
-exit;
 include("class/Extra.php");
+include("class/Alert.php");
 include("class/Setup.php");
 //
 Setup::iniciar();
@@ -34,12 +34,7 @@ Setup::iniciar();
                     <h3 class="text-center mt-5">Assistende de instalação</h3>
                     <p class="text-center mb-5">Siga os passos para completar a instalação</p>
                     
-                    <?php if(!empty($_SESSION['alert'])): ?>
-                    <div class="alert alert-dismissible fade show alert-<?= (!empty($_SESSION['alert']['tipo']) ? $_SESSION['alert']['tipo'] : "primary") ?>" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <?= $_SESSION['alert']['mensagem'] ?>
-                    </div>
-                    <?php endif; ?>
+                    <?= Alert::show() ?>
                     
                     <?php if(empty($_SESSION['conexao'])): ?>
                     <form method="POST" class="card" autocomplete="off">

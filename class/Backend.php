@@ -54,7 +54,7 @@ class Backend
         {
             case 'index.php':
             {
-                $_BACKEND['titulo'] = "Dashboard";
+                $_BACKEND['titulo'] = 'Dashboard';
                 return true;
             }
             case '404.php':

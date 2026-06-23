@@ -16,12 +16,6 @@ include("../../pre.php");
                         <a class="btn btn-app btn-primary" href="#collapse-pesquisa" data-bs-toggle="collapse">
                             <i class="bi-search"></i> Pesquisar
                         </a>
-                        <?php if(in_array('excluir', $_BACKEND['acesso'])): ?>
-                        <a class="btn btn-app btn-danger btn-trash" href="#" data-bs-toggle="modal" data-bs-target="#modal-excluir">
-                            <span class="position-absolute top-0 z-3 start-100 translate-middle badge bg-primary">0</span>
-                            <i class="bi-trash"></i> Excluir
-                        </a>
-                        <?php endif; ?>
                     </div>
                 </div>
                 <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="card-body collapse <?= !empty($_SESSION[$_SERVER['SCRIPT_NAME']]) ? 'show' : '' ?>" id="collapse-pesquisa">
@@ -50,7 +44,6 @@ include("../../pre.php");
                     <table class="table table-striped table-hover align-middle text-nowrap text-center m-0">
                         <thead>
                             <tr>
-                                <th><input class="form-check-input" type="checkbox"></th>
                                 <th>Imagem</th>
                                 <th>Nome</th>
                                 <th>CNPJ</th>
@@ -66,7 +59,6 @@ include("../../pre.php");
                             $cidade = (new Cidade)->id($row['cidadeFK']);
                             ?>
                             <tr>
-                                <td><input class="form-check-input" type="checkbox" name="id[<?= $row['id'] ?>]" value="<?= $row['id'] ?>"></td>
                                 <td><a href="<?= $_BACKEND['caminho'] ?>/editar.php?id=<?= Extra::enc($row['id']) ?>"><img src="<?= $row['imagem'] ?>" class="img rounded" width="32" alt="" loading="lazy"></a></td>
                                 <td><a href="<?= $_BACKEND['caminho'] ?>/editar.php?id=<?= Extra::enc($row['id']) ?>"><?= $row['nome'] ?></a></td>
                                 <td><a href="<?= $_BACKEND['caminho'] ?>/editar.php?id=<?= Extra::enc($row['id']) ?>"><?= $row['cnpj'] ?></a></td>
@@ -78,7 +70,6 @@ include("../../pre.php");
                         ?>
                         </tbody>
                     </table>
-                    <?php include_once("{$_ENV['SG_PATH_PUBLIC']}modal/excluir.php"); ?>
                 </form>
                 <div class="card-footer">
                     <div class="row justify-content-center">

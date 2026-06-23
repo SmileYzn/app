@@ -110,22 +110,25 @@ class Upload
     public function arquivo($nome)
     {
         $resultado = [];
-        
-        if (!empty($this->pasta) && !empty($nome))
+      
+        if (Sessao::get('id'))
         {
-            $arquivos = $this->getArquivos($nome);
-            
-            foreach ($arquivos as $key => $arquivo)
+            if (!empty($this->pasta) && !empty($nome))
             {
-                $destino = $this->getDestino($arquivo['name']);
+                $arquivos = $this->getArquivos($nome);
 
-                if (move_uploaded_file($arquivo['tmp_name'], $destino))
+                foreach ($arquivos as $key => $arquivo)
                 {
-                    $resultado[$key] = $this->getPublic($destino);
+                    $destino = $this->getDestino($arquivo['name']);
+
+                    if (move_uploaded_file($arquivo['tmp_name'], $destino))
+                    {
+                        $resultado[$key] = $this->getPublic($destino);
+                    }
                 }
-            }
+            }          
         }
-        
+
         return $resultado;
     }
 
@@ -141,6 +144,8 @@ class Upload
      */
     public function imagem($nome, $largura = 256, $altura = 256)
     {
+        $resultado = [];
+      
         $arquivos = $this->arquivo($nome);
 
         foreach ($arquivos as $key => $arquivo)
@@ -163,11 +168,7 @@ class Upload
             }
         }
         
-        if (!empty($resultado))
-        {
-            
-        }
-        
-        return false;
+
+        return (!empty($resultado) ? $resultado : false);
     }
 }

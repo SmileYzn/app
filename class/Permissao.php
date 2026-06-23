@@ -73,29 +73,7 @@ class Permissao extends Base
 
         return false;
     }
-
-    /**
-     * Criar as permissões para área especificada a partir dos módulos do sistema
-     * 
-     * @param int $areaFK       Index da área
-     * 
-     * @return bool             Retorna <b>TRUE</b> ou <b>FALSE</b>
-     */
-    public function inserirPermissoes($areaFK)
-    {
-        if (!empty($areaFK))
-        {
-            $run = $this->query("INSERT INTO permissao (SELECT NULL, {$areaFK}, id, 'index,adicionar,editar,excluir', NOW(), 1 FROM modulo);");
-
-            if (!empty($run))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    
+  
     /**
      * Executa as funçoes do index para a classe
      * 
@@ -108,9 +86,9 @@ class Permissao extends Base
             $_SESSION['fk'] = Extra::dec($_GET['fk']);
         }
 
-        if (!empty($this->alterarPermissao))
+        if (!empty($this->alterarAcesso))
         {
-            $this->alterarPermissao();
+            $this->alterarAcesso();
         }
 
         if (!empty($this->salvar))
@@ -240,7 +218,7 @@ class Permissao extends Base
      * 
      * @return int      Quantidade de registros alterados
      */
-    public function alterarPermissao()
+    public function alterarAcesso()
     {
         $resultado = 0;
         
@@ -266,5 +244,27 @@ class Permissao extends Base
         }
         
         return $resultado;
+    }
+    
+    /**
+     * Criar as permissões para área especificada a partir dos módulos do sistema
+     * 
+     * @param int $areaFK   Index da área
+     * 
+     * @return int          Retorna o número de permissões gravadas
+     */
+    public function inserirPermissoes($areaFK)
+    {
+        if (!empty($areaFK))
+        {
+            $run = $this->query("INSERT INTO permissao (SELECT NULL, {$areaFK}, id, IF(id = 1, 'index,adicionar,editar,excluir', ''), NOW(), 1 FROM modulo);");
+
+            if (!empty($run))
+            {
+                return $run->rowCount();
+            }
+        }
+
+        return 0;
     }
 }

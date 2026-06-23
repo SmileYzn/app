@@ -32,14 +32,6 @@ include("../../pre.php");
                             <input class="form-control" type="text" id="nomeFantasia" name="nomeFantasia" value="<?= $_DADOS['nomeFantasia'] ?>">
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Abertura</label>
-                            <input class="form-control" type="date" id="abertura" name="abertura" value="<?= $_DADOS['abertura'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Quadro Sócio / Administrativo</label>
-                            <input class="form-control" type="text" id="qsa" name="qsa" value="<?= $_DADOS['qsa'] ?>">
-                        </div>
-                        <div class="col-md-3">
                             <label class="form-label">Inscrição Estadual</label>
                             <input class="form-control" type="text" id="inscricaoEstadual" name="inscricaoEstadual" value="<?= $_DADOS['inscricaoEstadual'] ?>">
                         </div>
@@ -62,59 +54,9 @@ include("../../pre.php");
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Abertura</label>
-                            <input class="form-control" type="date" id="abertura" name="abertura" value="<?= $_DADOS['abertura'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Atualização na Receita Federal</label>
-                            <input class="form-control" type="datetime-local" id="ultimaAtualizacao" name="ultimaAtualizacao" value="<?= $_DADOS['ultimaAtualizacao'] ?>">
-                        </div>
                         <div class="col-md-3">
                             <label class="form-label">CNAE</label>
                             <input class="form-control" type="text" id="cnae" name="cnae" value="<?= $_DADOS['cnae'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Tipo</label>
-                            <input class="form-control" type="text" id="tipo" name="tipo" value="<?= $_DADOS['tipo'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Porte</label>
-                            <input class="form-control" type="text" id="porte" name="porte" value="<?= $_DADOS['porte'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Natureza Jurídica</label>
-                            <input class="form-control" type="text" id="naturezaJuridica" name="naturezaJuridica" value="<?= $_DADOS['naturezaJuridica'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Ente Federativo Responsável</label>
-                            <input class="form-control" type="text" id="efr" name="efr" value="<?= $_DADOS['efr'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Capital Social</label>
-                            <input class="form-control" type="text" id="capitalSocial" name="capitalSocial" value="<?= $_DADOS['capitalSocial'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Situação</label>
-                            <input class="form-control" type="text" id="situacao" name="situacao" value="<?= $_DADOS['situacao'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data da Situação</label>
-                            <input class="form-control" type="date" id="situacaoData" name="situacaoData" value="<?= $_DADOS['situacaoData'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Motivo da Situação</label>
-                            <input class="form-control" type="text" id="situacaoMotivo" name="situacaoMotivo" value="<?= $_DADOS['situacaoMotivo'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Situação (Especial)</label>
-                            <input class="form-control" type="text" id="situacaoEspecial" name="situacaoEspecial" value="<?= $_DADOS['situacaoEspecial'] ?>">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data da Situação (Especial)</label>
-                            <input class="form-control" type="date" id="situacaoEspecialData" name="situacaoEspecialData" value="<?= $_DADOS['situacaoEspecialData'] ?>">
                         </div>
                     </div>
                     <div class="row g-3 mb-3">

@@ -84,7 +84,7 @@ class Usuario extends Base
     public function validar($id)
     {
         $erro = [];
-
+        
         if (empty($this->nome))
         {
             $erro[] = "Preencha o campo: Nome";
