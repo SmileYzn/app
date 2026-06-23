@@ -48,8 +48,8 @@ class Logs extends Base
         
         $periodo =
         [
-            0 => (!empty($_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][0]) ? $_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][0] : date('Y-m-d', strtotime('FIRST DAY OF THIS MONTH'))),
-            1 => (!empty($_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][1]) ? $_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][1] : date('Y-m-d', strtotime('LAST DAY OF THIS MONTH'))),
+            0 => (!empty($_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][0]) ? $_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][0] : (new DateTime('FIRST DAY OF THIS MONTH'))->format('Y-m-d')),
+            1 => (!empty($_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][1]) ? $_SESSION[$_SERVER['SCRIPT_NAME']]['periodo'][1] : (new DateTime('LAST DAY OF THIS MONTH'))->format('Y-m-d')),
         ];
 
         $resultado = [];

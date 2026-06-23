@@ -13,10 +13,17 @@ date_default_timezone_set('America/Sao_Paulo');
 setlocale(LC_TIME, 'pt_BR.utf-8', 'pt_BR', 'portuguese');
 
 // Redirecionar logs do PHP
-ini_set('error_log', __DIR__ . '/logs/' . date('Y-m-d') . '.log');
+ini_set('error_log', __DIR__ . '/logs/' . (new DateTime)->format('Y-m-d') . '.log');
 
 // Conexão MySQL / MariaDB
-require_once("db.php");
+if (file_exists("db.php"))
+{
+    include_once("db.php");
+}
+else
+{
+    die("Não instalado.");
+}
 
 // Vendor (Composer autoloader)
 if (file_exists(__DIR__ . '/vendor/autoload.php'))
@@ -27,7 +34,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php'))
 // Classes do PHP
 spl_autoload_register(function($classe)
 {
-    $caminho = __DIR__ . '/class/' . $classe . '.php';
+    $caminho = __DIR__ . "/class/{$classe}.php";
 
     if(file_exists($caminho))
     {
